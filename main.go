@@ -30,6 +30,8 @@ func setupViper() {
 		codeartifactDomainOwner = flag.String("CODEARTIFACT_DOMAIN_OWNER", os.Getenv("CODEARTIFACT_DOMAIN_OWNER"), "owner (AWS acc) for the AWS CodeArtifact domain")
 	)
 
+	flag.Parse()
+
 	viper.Set("GITHUB_APP_ID", githubAppID)
 	viper.Set("GITHUB_SECRET", githubSecret)
 	viper.Set("DEPENDABOT_ORGA", organization)
