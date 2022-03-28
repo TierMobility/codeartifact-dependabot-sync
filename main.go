@@ -21,10 +21,10 @@ import (
 
 func setupViper() {
 	var (
-		organization            = flag.String("DEPENDABOT_ORGA", os.Getenv("DEPENDABOT_ORGA"), "the GitHub organization for which the secret should be created")
+		organization            = flag.String("DEPENDABOT_ORG", os.Getenv("DEPENDABOT_ORG"), "the GitHub organization for which the secret should be created")
 		githubSecret            = flag.String("GITHUB_SECRET", os.Getenv("GITHUB_SECRET"), "GitHub secret for GitHub App authentication")
 		githubAppID             = flag.String("GITHUB_APP_ID", os.Getenv("GITHUB_APP_ID"), "the ID of the GitHub App used for authentication")
-		organizationOwner       = flag.String("DEPENDABOT_OWNER", os.Getenv("DEPENDABOT_OWNER"), "owner of the GitHub organization")
+		organizationOwner       = flag.String("DEPENDABOT_OWNER", os.Getenv("DEPENDABOT_OWNER"), " owner of the GitHub organization")
 		tokenDuration           = flag.String("CODEARTIFACT_DURATION", os.Getenv("CODEARTIFACT_DURATION"), "duration of the AWS CodeArtifact authToken")
 		codeartifactDomain      = flag.String("CODEARTIFACT_DOMAIN", os.Getenv("CODEARTIFACT_DOMAIN"), "AWS CodeArtifact Domain for which access is required")
 		codeartifactDomainOwner = flag.String("CODEARTIFACT_DOMAIN_OWNER", os.Getenv("CODEARTIFACT_DOMAIN_OWNER"), "owner (AWS acc) for the AWS CodeArtifact domain")
@@ -34,7 +34,7 @@ func setupViper() {
 
 	viper.Set("GITHUB_APP_ID", githubAppID)
 	viper.Set("GITHUB_SECRET", githubSecret)
-	viper.Set("DEPENDABOT_ORGA", organization)
+	viper.Set("DEPENDABOT_ORG", organization)
 	viper.Set("DEPENDABOT_OWNER", organizationOwner)
 	viper.Set("CODEARTIFACT_DURATION", tokenDuration)
 	viper.Set("CODEARTIFACT_DOMAIN", codeartifactDomain)

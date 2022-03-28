@@ -1,42 +1,79 @@
 # codeartifact-dependabot-sync
 
-This project is a little go tool that pushes a refreshed AWS CodeArtifact token to an entire Organizations Dependabot. 
+Many people are using private registries like [AWS CodeArtifact](https://aws.amazon.com/codeartifact/) to store critical code and distribute it within a controlled domain. [Dependabot](https://github.com/dependabot/dependabot-core) is a GitHub integrated tool that allows for dependency analysis with automatic pull requests and alerts for repositories. As the name suggests, private registries are only allowed to be accessed by people and systems that have access.
 
-# How to run
+Until recently, Dependabot's only option to access private registries was to add secrets through the UI. Now they offer additional API operations for [programmatically adding secrets to Dependabot](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/managing-encrypted-secrets-for-dependabot). 
 
-1. building the binary/tool
+This project aims to become a tool for people who are using AWS CodeArtifact and want to use Dependabot with it. The codeartifact-dependabot-sync enables you to automatically update your secret every 10 hours.
 
+# Getting started
+
+The following instructions show how to setup the environment to run this code within a given environment.
+
+## Prerequisites 
+
+-   A fresh install of Golang 1.17. Please follow [these instructions from the official documentation](https://go.dev/dl/)
     ```Bash
-    go build .
+    go version
+    go version go1.17.6 darwin/amd64
     ```
 
-2. using tool with run flags or env variables:
+- A GitHub App that has access to Dependabot Secrets for your Repo or Organization. [Official docs](https://docs.github.com/en/developers/apps/getting-started-with-apps/about-apps)
 
-- CODEARTIFACT_DOMAIN 
+## Installation
 
-    AWS CodeArtifact Domain for which access is required
+1. <a name="setup"></a>Setup the following data:
 
-- CODEARTIFACT_DOMAIN_OWNER 
-    
-    owner (AWS acc) for the AWS CodeArtifact domain
+    | Key  | Description  |
+    |---|---|
+    | CODEARTIFACT_DOMAIN_OWNER  | Owner (AWS acc) for the AWS CodeArtifact domain. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
+    | CODEARTIFACT_DURATION  | Duration of the AWS CodeArtifact authToken.  |
+    | CODEARTIFACT_DOMAIN  | AWS CodeArtifact Domain for which access is required. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
+    | DEPENDABOT_OWNER  | Owner of the GitHub organization  |
+    | DEPENDABOT_ORG  | The GitHub organization for which the secret should be created  |
+    | GITHUB_SECRET  | GitHub secret for GitHub App authentication  |
+    | GITHUB_APP_ID  | The ID of the GitHub App used for authentication  |
 
-- CODEARTIFACT_DURATION
+1. clone the repo
 
-    duration of the AWS CodeArtifact authToken
+    ```Bash
+    git clone https://github.com/TierMobility/codeartifact-dependabot-sync
 
-- DEPENDABOT_ORGA
-    
-    the GitHub organization for which the secret should be created
+    cd codeartifact-dependabot-sync
+    ```
 
-- DEPENDABOT_OWNER
-    
-    owner of the GitHub organization
+1. (optional) get all modules
 
-- GITHUB_APP_ID
-    
-    the ID of the GitHub App used for authentication
+    ```bash
+    export GO111MODULE=on
+    go get .
+    ```
 
-- GITHUB_SECRET
-    
-    GitHub secret for GitHub App authentication
+1. Build it
+    ```Bash
+    GO111MODULE=on go build . -o /codeartifact-dependabot-sync
+    ```
+
+## How to use
+
+- Using env variables
+    1. Setup environment variables regarding [point 1 from installation](#setup)
+
+    2. 
+        ```bash
+        ./codeartifact-dependabot-sync
+        ```
+
+- Using flags
+
+    1. The flags for the tool are the same as demonstrated in [point 1 from installation](#setup). 
+
+        ```Bash
+        # Get all the flags and their descriptions:
+        ./codeartifact-dependabot-sync -h
+
+        # run it with flag data
+        ./codeartifact-dependabot-sync -DEPENDABOT-ORG=exampleOrg -CODEARTIFACT_OWNER=exampleOwner ...
+        ```
+
 

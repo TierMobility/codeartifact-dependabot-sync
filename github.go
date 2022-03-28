@@ -146,7 +146,7 @@ func encryptSecret(plainSecret, key, tok string) (*string, error) {
 
 func createOrUpdateDependabotSecret(ctx context.Context, ghClient *github.Client, secret string) error {
 	var (
-		org   = viper.GetString("DEPENDABOT_ORGA")
+		org   = viper.GetString("DEPENDABOT_ORG")
 		token = viper.GetString("DEPENDABOT_GITHUB_TOKEN")
 	)
 
