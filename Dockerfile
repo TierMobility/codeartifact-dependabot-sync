@@ -10,7 +10,7 @@ COPY *.go ./
 
 RUN go build -o /codeartifact-dependabot-sync
 
-FROM scratch
+FROM gcr.io/distroless/base:nonroot
 
 WORKDIR /
 

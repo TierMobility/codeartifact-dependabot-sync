@@ -13,26 +13,14 @@ The following instructions show how to setup the environment to run this code wi
 ## Prerequisites 
 
 -   A fresh install of Golang 1.17. Please follow [these instructions from the official documentation](https://go.dev/dl/)
-    ```Bash
-    go version
+    ```console
+    foo@bar:~$ go version
     go version go1.17.6 darwin/amd64
     ```
 
 - A GitHub App that has access to Dependabot Secrets for your Repo or Organization. [Official docs](https://docs.github.com/en/developers/apps/getting-started-with-apps/about-apps)
 
 ## Installation
-
-1. <a name="setup"></a>Setup the following data:
-
-    | Key  | Description  |
-    |---|---|
-    | CODEARTIFACT_DOMAIN_OWNER  | Owner (AWS acc) for the AWS CodeArtifact domain. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
-    | CODEARTIFACT_DURATION  | Duration of the AWS CodeArtifact authToken.  |
-    | CODEARTIFACT_DOMAIN  | AWS CodeArtifact Domain for which access is required. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
-    | DEPENDABOT_OWNER  | Owner of the GitHub organization  |
-    | DEPENDABOT_ORG  | The GitHub organization for which the secret should be created  |
-    | GITHUB_SECRET  | GitHub secret for GitHub App authentication  |
-    | GITHUB_APP_ID  | The ID of the GitHub App used for authentication  |
 
 1. clone the repo
 
@@ -55,6 +43,20 @@ The following instructions show how to setup the environment to run this code wi
     ```
 
 ## How to use
+
+> the tool runs indefinitely until the process is killed
+
+- <a name="setup"></a>Setup the following data:
+
+    | Key  | Description  |
+    |---|---|
+    | CODEARTIFACT_DOMAIN_OWNER  | Owner (AWS acc) for the AWS CodeArtifact domain. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
+    | CODEARTIFACT_DURATION  | Duration of the AWS CodeArtifact authToken.  |
+    | CODEARTIFACT_DOMAIN  | AWS CodeArtifact Domain for which access is required. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
+    | GITHUB_PRIVATE_KEY  | GitHub secret for GitHub App authentication  |
+    | DEPENDABOT_OWNER  | Owner of the GitHub organization  |
+    | DEPENDABOT_ORG  | The GitHub organization for which the secret should be created  |
+    | GITHUB_APP_ID  | The ID of the GitHub App used for authentication  |
 
 - Using env variables
     1. Setup environment variables regarding [point 1 from installation](#setup)

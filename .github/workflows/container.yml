@@ -1,0 +1,27 @@
+name: container
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-container:
+    runs-on: ubuntu-latest
+    name: build_container
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: TierMobility
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # The github ref is in the 'refs/tags/<tag_name>' format, therefore we strip until the <tag_name>
+      - name: set tag_name
+        run: |
+          echo "tag_name=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/tiermobility/codeartifact-dependabot-sync:latest,ghcr.io/tiermobility/codeartifact-dependabot-sync:${{ env.tag_name }}

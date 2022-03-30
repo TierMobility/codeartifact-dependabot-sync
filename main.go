@@ -22,7 +22,7 @@ import (
 func setupViper() {
 	var (
 		organization            = flag.String("DEPENDABOT_ORG", os.Getenv("DEPENDABOT_ORG"), "the GitHub organization for which the secret should be created")
-		githubSecret            = flag.String("GITHUB_SECRET", os.Getenv("GITHUB_SECRET"), "GitHub secret for GitHub App authentication")
+		githubSecret            = flag.String("GITHUB_PRIVATE_KEY", os.Getenv("GITHUB_PRIVATE_KEY"), "GitHub secret for GitHub App authentication")
 		githubAppID             = flag.String("GITHUB_APP_ID", os.Getenv("GITHUB_APP_ID"), "the ID of the GitHub App used for authentication")
 		organizationOwner       = flag.String("DEPENDABOT_OWNER", os.Getenv("DEPENDABOT_OWNER"), " owner of the GitHub organization")
 		tokenDuration           = flag.String("CODEARTIFACT_DURATION", os.Getenv("CODEARTIFACT_DURATION"), "duration of the AWS CodeArtifact authToken")
@@ -33,7 +33,7 @@ func setupViper() {
 	flag.Parse()
 
 	viper.Set("GITHUB_APP_ID", githubAppID)
-	viper.Set("GITHUB_SECRET", githubSecret)
+	viper.Set("GITHUB_PRIVATE_KEY", githubSecret)
 	viper.Set("DEPENDABOT_ORG", organization)
 	viper.Set("DEPENDABOT_OWNER", organizationOwner)
 	viper.Set("CODEARTIFACT_DURATION", tokenDuration)
