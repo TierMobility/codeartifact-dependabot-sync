@@ -1,6 +1,6 @@
 # codeartifact-dependabot-sync
 
-Many people are using private registries like [AWS CodeArtifact](https://aws.amazon.com/codeartifact/) to store critical code and distribute it within a controlled domain. [Dependabot](https://github.com/dependabot/dependabot-core) is a GitHub integrated tool that allows for dependency analysis with automatic pull requests and alerts for repositories. As the name suggests, private registries are only allowed to be accessed by people and systems that have access.
+Many people are using private registries like [AWS CodeArtifact](https://aws.amazon.com/codeartifact/) to store critical code and distribute it within a controlled domain. [Dependabot](https://github.com/dependabot) is a GitHub integrated tool that allows for dependency analysis with automatic pull requests and alerts for repositories. As the name suggests, private registries are only allowed to be accessed by people and systems that have access.
 
 Until recently, Dependabot's only option to access private registries was to add secrets through the UI. Now they offer additional API operations for [programmatically adding secrets to Dependabot](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/managing-encrypted-secrets-for-dependabot). 
 
