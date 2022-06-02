@@ -74,7 +74,8 @@ func setupGitHubAppClient(ctx context.Context) (*github.Client, error) {
 
 	tempClient := newGitHubClient(ctx, *signedToken)
 
-	inst, _, err := tempClient.Apps.FindOrganizationInstallation(ctx, "TierMobility")
+
+	inst, _, err := tempClient.Apps.FindOrganizationInstallation(ctx, viper.GetString("DEPENDABOT_ORG"))
 	if err != nil {
 		return nil, fmt.Errorf("setting up GitHub App client: %w", err)
 	}
