@@ -44,7 +44,7 @@ type Permissions struct {
 }
 
 func getJWT() (*string, error) {
-	pemBytes := []byte(viper.GetString("DEPENDABOT_GITHUB_TOKEN"))
+	pemBytes := []byte(viper.GetString("GITHUB_PRIVATE_KEY"))
 
 	block, _ := pem.Decode(pemBytes)
 	key, err := x509.ParsePKCS1PrivateKey(block.Bytes)
@@ -147,7 +147,7 @@ func encryptSecret(plainSecret, key, tok string) (*string, error) {
 func createOrUpdateDependabotSecret(ctx context.Context, ghClient *github.Client, secret string) error {
 	var (
 		org   = viper.GetString("DEPENDABOT_ORG")
-		token = viper.GetString("DEPENDABOT_GITHUB_TOKEN")
+		token = viper.GetString("GITHUB_APP_TOKEN")
 	)
 
 	pk, _, err := ghClient.Dependabot.GetOrgPublicKey(ctx, org)
