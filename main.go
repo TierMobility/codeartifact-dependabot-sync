@@ -64,6 +64,12 @@ func main() {
 		}
 	}()
 
+	cfg, err := config.LoadDefaultConfig(ctx)
+	if err != nil {
+		logrus.Fatalf("AWS config could not be created: %v", err)
+	}
+
+	run(ctx, cfg)
   if viper.GetBool("DAEMON") {
     go func() {
       mux := http.NewServeMux()
@@ -71,16 +77,7 @@ func main() {
 
       http.ListenAndServe("0.0.0.0:8701", mux)
     }()
-  }
 
-	cfg, err := config.LoadDefaultConfig(ctx)
-	if err != nil {
-		logrus.Fatalf("AWS config could not be created: %v", err)
-	}
-
-	run(ctx, cfg)
-
-  if viper.GetBool("DAEMON") {
     for range time.NewTicker(time.Hour * 10).C {
       run(ctx, cfg)
     }
