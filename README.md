@@ -53,10 +53,10 @@ The following instructions show how to setup the environment to run this code wi
     | CODEARTIFACT_DOMAIN_OWNER  | Owner (AWS acc) for the AWS CodeArtifact domain. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
     | CODEARTIFACT_DURATION  | Duration of the AWS CodeArtifact authToken.  |
     | CODEARTIFACT_DOMAIN  | AWS CodeArtifact Domain for which access is required. Also used when [using CodeArtifact with AWS Cli](https://docs.aws.amazon.com/cli/latest/reference/codeartifact/login.html)  |
-    | GITHUB_PRIVATE_KEY  | GitHub secret for GitHub App authentication  |
-    | DEPENDABOT_OWNER  | Owner of the GitHub organization  |
     | DEPENDABOT_ORG  | The GitHub organization for which the secret should be created  |
+    | GITHUB_PRIVATE_KEY  | GitHub secret for GitHub App authentication  |
     | GITHUB_APP_ID  | The ID of the GitHub App used for authentication  |
+    | GITHUB_APP_TOKEN  | GitHub App token used for encrypting secrets |
 
 - Using env variables
     1. Setup environment variables regarding [point 1 from installation](#setup)
@@ -75,7 +75,7 @@ The following instructions show how to setup the environment to run this code wi
         ./codeartifact-dependabot-sync -h
 
         # run it with flag data
-        ./codeartifact-dependabot-sync -DEPENDABOT-ORG=exampleOrg -CODEARTIFACT_OWNER=exampleOwner ...
+        ./codeartifact-dependabot-sync -DEPENDABOT-ORG=exampleOrg  ...
         ```
 
 
