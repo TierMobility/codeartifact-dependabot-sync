@@ -44,7 +44,7 @@ The following instructions show how to setup the environment to run this code wi
 
 ## How to use
 
-> the tool runs indefinitely until the process is killed
+> the tool runs indefinitely until the process is killed. This can be dissabled by setting the `DAEMON` option to `false`.
 
 - <a name="setup"></a>Setup the following data:
 

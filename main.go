@@ -28,6 +28,7 @@ func setupViper() {
 		tokenDuration           = flag.String("CODEARTIFACT_DURATION", os.Getenv("CODEARTIFACT_DURATION"), "duration of the AWS CodeArtifact authToken")
 		codeartifactDomain      = flag.String("CODEARTIFACT_DOMAIN", os.Getenv("CODEARTIFACT_DOMAIN"), "AWS CodeArtifact Domain for which access is required")
 		codeartifactDomainOwner = flag.String("CODEARTIFACT_DOMAIN_OWNER", os.Getenv("CODEARTIFACT_DOMAIN_OWNER"), "owner (AWS acc) for the AWS CodeArtifact domain")
+		daemon                  = flag.Bool("DAEMON", true, "whether to run in Daemon mode, re-authenticating every 10 hours.")
 	)
 
 	flag.Parse()
@@ -39,6 +40,7 @@ func setupViper() {
 	viper.Set("CODEARTIFACT_DURATION", tokenDuration)
 	viper.Set("CODEARTIFACT_DOMAIN", codeartifactDomain)
 	viper.Set("CODEARTIFACT_DOMAIN_OWNER", codeartifactDomainOwner)
+	viper.Set("DAEMON", daemon)
 }
 
 func main() {
@@ -62,22 +64,23 @@ func main() {
 		}
 	}()
 
-	go func() {
-		mux := http.NewServeMux()
-		mux.Handle("/metrics", promhttp.Handler())
-
-		http.ListenAndServe("0.0.0.0:8701", mux)
-	}()
-
 	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		logrus.Fatalf("AWS config could not be created: %v", err)
 	}
 
 	run(ctx, cfg)
+	if viper.GetBool("DAEMON") {
+		go func() {
+			mux := http.NewServeMux()
+			mux.Handle("/metrics", promhttp.Handler())
 
-	for range time.NewTicker(time.Hour * 10).C {
-		run(ctx, cfg)
+			http.ListenAndServe("0.0.0.0:8701", mux)
+		}()
+
+		for range time.NewTicker(time.Hour * 10).C {
+			run(ctx, cfg)
+		}
 	}
 }
 
@@ -111,6 +114,7 @@ func getCodeArtifactSecret(ctx context.Context, cfg aws.Config) (*string, error)
 		Domain:          &domain,
 		DomainOwner:     &domainOwner,
 	})
+
 	if err != nil {
 		return nil, fmt.Errorf("retrieving code artifact secret: %w", err)
 	}
