@@ -70,18 +70,18 @@ func main() {
 	}
 
 	run(ctx, cfg)
-  if viper.GetBool("DAEMON") {
-    go func() {
-      mux := http.NewServeMux()
-      mux.Handle("/metrics", promhttp.Handler())
+	if viper.GetBool("DAEMON") {
+		go func() {
+			mux := http.NewServeMux()
+			mux.Handle("/metrics", promhttp.Handler())
 
-      http.ListenAndServe("0.0.0.0:8701", mux)
-    }()
+			http.ListenAndServe("0.0.0.0:8701", mux)
+		}()
 
-    for range time.NewTicker(time.Hour * 10).C {
-      run(ctx, cfg)
-    }
-  }
+		for range time.NewTicker(time.Hour * 10).C {
+			run(ctx, cfg)
+		}
+	}
 }
 
 func run(ctx context.Context, cfg aws.Config) {
