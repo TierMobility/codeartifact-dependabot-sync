@@ -2,7 +2,10 @@ module codeartifact-dependabot-sync
 
 go 1.17
 
-require github.com/aws/aws-sdk-go-v2 v1.13.0
+require (
+	github.com/aws/aws-sdk-go-v2 v1.13.0
+	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
+)
 
 require (
 	github.com/aws/aws-sdk-go-v2/credentials v1.8.0 // indirect
@@ -31,7 +34,6 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
-	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	golang.org/x/text v0.3.7 // indirect
@@ -45,7 +47,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.13.1
 	github.com/aws/aws-sdk-go-v2/service/codeartifact v1.10.0
 	github.com/aws/smithy-go v1.10.0 // indirect
-	github.com/golang-jwt/jwt/v4 v4.3.0
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/go-github/v42 v42.0.0
 	github.com/prometheus/client_golang v1.12.1
 	github.com/sirupsen/logrus v1.8.1
